@@ -1,0 +1,30 @@
+server:
+  port: 9000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name: tryg-demo
+  kafka:
+    bootstrap-servers: <CCLOUD-BOOTSTRAP-URL>
+    properties:
+      security:
+        protocol: SASL_SSL
+      sasl:
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username='<CCLOUD-API-KEY>' password='<CCLOUD-API-SECRET>';
+        mechanism: PLAIN
+    producer:
+      client-id: tryg-demo-producer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: tryg-demo-cg
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+

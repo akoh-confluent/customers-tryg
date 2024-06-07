@@ -1,0 +1,25 @@
+scrape_configs:
+  - job_name: Confluent Cloud
+    scrape_interval: 1m
+    scrape_timeout: 1m
+    honor_timestamps: true
+    static_configs:
+      - targets:
+        - api.telemetry.confluent.cloud
+    scheme: https
+    basic_auth:
+      username: <>
+      password: <>
+    metrics_path: /v2/metrics/cloud/export
+    params:
+      resource.kafka.id: ["KAFKA-CLUSTER-ID"]
+      resource.schema_registry.id: ["SCHEMA-REGISTRY-ID"]
+
+  - job_name: Spring Kafka Clients
+    scrape_interval: 1m
+    scrape_timeout: 1m
+    honor_timestamps: true
+    static_configs:
+      - targets:
+          - tryg-demo-app:9000
+    metrics_path: /actuator/prometheus
